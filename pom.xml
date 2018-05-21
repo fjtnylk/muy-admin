@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.muy</groupId>
+    <artifactId>muy-master</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+
+    <modules>
+        <module>muy-common</module>
+        <module>muy-message</module>
+        <module>muy-monitor</module>
+        <module>muy-web</module>
+    </modules>
+
+    <developers>
+        <developer>
+            <name>杨礼凯</name>
+            <url>https://github.com/fjtnylk/muyclound-master</url>
+            <email>fjtnylk@126.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <!--java-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!--maven-->
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+
+        <!--fast-dfs-->
+        <fast-dfs.version>1.27.0.0</fast-dfs.version>
+
+        <!--alibaba-->
+        <!--dubbo-starter-->
+        <dubbo-spring-boot-starter.version>1.0.1</dubbo-spring-boot-starter.version>
+        <!--dubbo-->
+        <dubbo.version>2.5.6</dubbo.version>
+        <!--zk-->
+        <zkclient.version>0.10</zkclient.version>
+        <!--druid-->
+        <druid.version>1.0.14</druid.version>
+        <!--fastjson-->
+        <fastjson.version>1.1.41</fastjson.version>
+
+        <!--mybatis-->
+        <mybatis-plus.version>2.2.0</mybatis-plus.version>
+
+        <!--sharding-jdbc-->
+        <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
+
+        <!--elastic-job-->
+        <elastic-job.version>2.1.5</elastic-job.version>
+
+        <!--mysql-->
+        <mysql.version>6.0.6</mysql.version>
+
+        <!--redisson-->
+        <redisson.version>3.6.0</redisson.version>
+
+        <!--tools-->
+        <!--jackson-->
+        <jackson.version>2.8.8</jackson.version>
+        <!--codehaus-jackson-->
+        <codehaus-jackson.version>1.9.13</codehaus-jackson.version>
+        <!--guava-->
+        <guava.version>23.0</guava.version>
+        <!--commons-lang3-->
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <!--lombok-->
+        <lombok.version>1.16.20</lombok.version>
+        <!--orika-->
+        <orika.version>1.5.2</orika.version>
+        <!--junit-->
+        <junit.version>4.12</junit.version>
+        <!--aspectj-->
+        <aspectj.version>1.8.9</aspectj.version>
+        <!--javax-validation-->
+        <javax-validation.version>2.0.1.Final</javax-validation.version>
+        <!--poi-->
+        <poi.version>3.17</poi.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--spring-->
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>Brussels-SR7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Edgware.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--fast-dfs-->
+            <dependency>
+                <groupId>net.oschina.zcx7878</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fast-dfs.version}</version>
+            </dependency>
+
+            <!--alibaba-->
+            <dependency>
+                <groupId>com.alibaba.spring.boot</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--mybatis-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!--sharding-jdbc-->
+            <dependency>
+                <groupId>io.shardingjdbc</groupId>
+                <artifactId>sharding-jdbc-core</artifactId>
+                <version>${sharding-jdbc.version}</version>
+            </dependency>
+
+            <!--elastic-job-->
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>elastic-job-lite-core</artifactId>
+                <version>${elastic-job.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>elastic-job-lite-spring</artifactId>
+                <version>${elastic-job.version}</version>
+            </dependency>
+
+            <!--mysql-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!--redisson-->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!--tools-->
+            <!--jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!--codehaus.jackson-->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-jaxrs</artifactId>
+                <version>${codehaus-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-smile</artifactId>
+                <version>${codehaus-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>${codehaus-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${codehaus-jackson.version}</version>
+            </dependency>
+
+            <!--guava-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!--commons-lang3-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!--orika-->
+            <dependency>
+                <groupId>ma.glasnost.orika</groupId>
+                <artifactId>orika-core</artifactId>
+                <version>${orika.version}</version>
+            </dependency>
+
+            <!--aspectj-->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!--javax-validation-->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax-validation.version}</version>
+            </dependency>
+
+            <!--poi-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-scratchpad</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <!--junit-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+</project>
