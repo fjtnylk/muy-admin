@@ -17,8 +17,14 @@
     </parent>
 
     <modules>
+        <module>muy-web-admin</module>
     </modules>
 
     <dependencies>
+        <dependency>
+            <groupId>com.muy</groupId>
+            <artifactId>muy-common-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 </project>
