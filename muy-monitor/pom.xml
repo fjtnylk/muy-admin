@@ -6,9 +6,18 @@
     <groupId>com.muy</groupId>
     <artifactId>muy-monitor</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
+
+    <parent>
+        <groupId>com.muy</groupId>
+        <artifactId>muy-master</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <modules>
+    </modules>
 
     <dependencies>
     </dependencies>
