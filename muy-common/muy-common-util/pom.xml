@@ -54,6 +54,12 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
+        <!--guava-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
         <!--servleet-->
         <dependency>
             <groupId>javax.servlet</groupId>

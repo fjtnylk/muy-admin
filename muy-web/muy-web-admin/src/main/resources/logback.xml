@@ -34,28 +34,19 @@
         </encoder>
     </appender>
 
-    <logger name="com.muy" level="INFO">
-        <appender-ref ref="STDOUT"/>
+    <!--异步文件写入-->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE"/>
-    </logger>
-
-    <logger name="org.springframework" level="ERROR">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </logger>
-
-    <logger name="org.mybatis" level="ERROR">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </logger>
-
-    <logger name="java.sql" level="ERROR">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </logger>
+    </appender>
 
     <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="ASYNC"/>
     </root>
+
+    <logger name="com.muy" level="INFO" />
+    <logger name="org.springframework" level="ERROR" />
+    <logger name="org.mybatis" level="ERROR" />
+    <logger name="java.sql" level="ERROR" />
 </configuration>

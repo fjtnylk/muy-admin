@@ -3,8 +3,6 @@ server:
 spring:
   application:
     name: @pom.artifactId@
-  profiles:
-    active: @profileActive@
   redis:
     host: 127.0.0.1
     password: xceof
@@ -12,7 +10,7 @@ spring:
     timeout: 0
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/muyclound_umc?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/muy_admin?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
     username: root
     password: yanglikai
     filters: stat,wall
