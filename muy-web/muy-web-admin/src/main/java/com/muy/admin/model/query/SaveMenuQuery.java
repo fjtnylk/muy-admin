@@ -6,5 +6,5 @@ import lombok.Data;
  * Created by yanglikai on 2018/5/23.
  */
 @Data
-public class UpdateMenuQuery extends MenuQuery {
+public class SaveMenuQuery extends MenuQuery {
 }

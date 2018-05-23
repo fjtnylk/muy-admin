@@ -1,19 +1,15 @@
 package com.muy.admin.service;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.domain.MasterRoleDO;
-import com.muy.admin.model.query.CreateMenuQuery;
 import com.muy.admin.model.query.SaveGroupQuery;
+import com.muy.admin.model.query.SaveMenuQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
-import com.muy.admin.model.query.UpdateMenuQuery;
 import com.muy.admin.repository.MasterGroupRepository;
 import com.muy.admin.repository.MasterMenuRepository;
 import com.muy.admin.repository.MasterRoleRepository;
 import com.muy.util.mapper.MapperUtil;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -165,30 +161,57 @@ public class SystemSettingService {
   // ============================================Menu start=============================================
 
   /**
-   * 创建菜单.
+   * 保存/更新菜单.
    *
    * @param query
    * @return
    */
-  public boolean create4Menu(CreateMenuQuery query) {
+  public boolean save4Menu(SaveMenuQuery query) {
     MasterMenuDO target = MapperUtil.map(query, MasterMenuDO.class);
 
-    return menuRepository.insert(target);
+    return menuRepository.save(target);
   }
 
   /**
-   * 更新菜单信息.
+   * 批量保存/更新菜单.
    *
    * @param query
    * @return
    */
-  public boolean update4Menu(UpdateMenuQuery query) {
-    MasterMenuDO entity = MapperUtil.map(query, MasterMenuDO.class);
-    entity.setUpdateTime(new Date());
+  public boolean saveBatch4Menu(List<SaveMenuQuery> query) {
+    List<MasterMenuDO> target = MapperUtil.map(query, MasterMenuDO.class);
 
-    Wrapper wrapper = new EntityWrapper().where("id={0}", entity.getId());
+    return menuRepository.saveBatch(target);
+  }
 
-    return menuRepository.update(entity, wrapper);
+  /**
+   * 删除菜单信息.
+   *
+   * @param menuId
+   * @return
+   */
+  public boolean delete4Menu(Integer menuId) {
+    return menuRepository.delete(menuId);
+  }
+
+  /**
+   * 批量删除菜单信息.
+   *
+   * @param menuIdList
+   * @return
+   */
+  public boolean deleteBatch4Menu(List<Integer> menuIdList) {
+    return menuRepository.deleteBatch(menuIdList);
+  }
+
+  /**
+   * 加载单条菜单信息.
+   *
+   * @param menuId
+   * @return
+   */
+  public MasterMenuDO loadSignle4Menu(Integer menuId) {
+    return menuRepository.selectSignle(menuId);
   }
 
   /**

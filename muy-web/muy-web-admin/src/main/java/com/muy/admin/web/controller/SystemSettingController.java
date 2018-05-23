@@ -1,11 +1,11 @@
 package com.muy.admin.web.controller;
 
-import com.muy.admin.model.query.CreateMenuQuery;
 import com.muy.admin.model.query.DeleteGroupQuery;
+import com.muy.admin.model.query.DeleteMenuQuery;
 import com.muy.admin.model.query.DeleteRoleQuery;
 import com.muy.admin.model.query.SaveGroupQuery;
+import com.muy.admin.model.query.SaveMenuQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
-import com.muy.admin.model.query.UpdateMenuQuery;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.util.wrapper.WrapMapper;
 import com.muy.util.wrapper.Wrapper;
@@ -180,7 +180,9 @@ public class SystemSettingController {
   @ResponseBody
   public Wrapper deleteBatchRole(@Validated @RequestBody List<DeleteRoleQuery> query) {
     List<String> roleCodeList =
-        query.stream().map(el -> el.getCode()).collect(Collectors.toList());
+        query.stream()
+            .map(el -> el.getCode())
+            .collect(Collectors.toList());
 
     return WrapMapper.ok(systemSettingService.deleteBatch4Role(roleCodeList));
   }
@@ -200,27 +202,68 @@ public class SystemSettingController {
   }
 
   /**
-   * 创建菜单.
+   * 加载单条菜单信息.
    *
-   * @param query
+   * @param menuId
    * @return
    */
-  @PostMapping(value = "/menu/create")
+  @GetMapping(value = "/menu/signle/load")
   @ResponseBody
-  public Wrapper createMenu(@Validated @RequestBody CreateMenuQuery query) {
-    return WrapMapper.ok(systemSettingService.create4Menu(query));
+  public Wrapper loadSignleMenu(Integer menuId) {
+    return WrapMapper.ok(systemSettingService.loadSignle4Menu(menuId));
   }
 
   /**
-   * 更新菜单.
+   * 保存/更新菜单.
    *
    * @param query
    * @return
    */
-  @PostMapping(value = "/menu/update")
+  @PostMapping(value = "/menu/save")
   @ResponseBody
-  public Wrapper updateMenu(@Validated @RequestBody UpdateMenuQuery query) {
-    return WrapMapper.ok(systemSettingService.update4Menu(query));
+  public Wrapper saveMenu(@Validated @RequestBody SaveMenuQuery query) {
+    return WrapMapper.ok(systemSettingService.save4Menu(query));
+  }
+
+  /**
+   * 批量保存/更新菜单.
+   *
+   * @param query
+   * @return
+   */
+  @PostMapping(value = "/menu/batch/save")
+  @ResponseBody
+  public Wrapper saveBatchMenu(@Validated @RequestBody List<SaveMenuQuery> query) {
+    return WrapMapper.ok(systemSettingService.saveBatch4Menu(query));
+  }
+
+  /**
+   * 删除菜单信息.
+   *
+   * @param query
+   * @return
+   */
+  @PostMapping(value = "/menu/delete")
+  @ResponseBody
+  public Wrapper deleteMenu(@Validated @RequestBody DeleteMenuQuery query) {
+    return WrapMapper.ok(systemSettingService.delete4Menu(query.getMenuId()));
+  }
+
+  /**
+   * 批量删除菜单信息.
+   *
+   * @param query
+   * @return
+   */
+  @PostMapping(value = "/menu/batch/delete")
+  @ResponseBody
+  public Wrapper deleteBatchMenu(@Validated @RequestBody List<DeleteMenuQuery> query) {
+    List<Integer> menuIdList =
+        query.stream()
+            .map(el -> el.getMenuId())
+            .collect(Collectors.toList());
+
+    return WrapMapper.ok(systemSettingService.deleteBatch4Menu(menuIdList));
   }
   // ============================================Menu end  =============================================
 }
