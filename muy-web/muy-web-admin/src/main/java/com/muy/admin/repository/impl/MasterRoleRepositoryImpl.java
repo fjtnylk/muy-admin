@@ -2,31 +2,31 @@ package com.muy.admin.repository.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.muy.admin.mapper.MasterGroupMapper;
-import com.muy.admin.model.domain.MasterGroupDO;
-import com.muy.admin.repository.MasterGroupRepository;
+import com.muy.admin.mapper.MasterRoleMapper;
+import com.muy.admin.model.domain.MasterRoleDO;
+import com.muy.admin.repository.MasterRoleRepository;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by yanglikai on 2018/5/22.
+ * Created by yanglikai on 2018/5/23.
  */
 @Repository
-public class MasterGroupRepositoryImpl
-    extends ServiceImpl<MasterGroupMapper, MasterGroupDO> implements MasterGroupRepository {
+public class MasterRoleRepositoryImpl
+    extends ServiceImpl<MasterRoleMapper, MasterRoleDO> implements MasterRoleRepository {
   @Resource
-  private MasterGroupMapper groupMapper;
+  private MasterRoleMapper roleMapper;
 
   /**
-   * 查询所有组织信息.
+   * 查询所有角色信息.
    *
    * @return
    */
   @Cacheable(value = "master", key = "#root.targetClass")
   @Override
-  public List<MasterGroupDO> selectAll() {
+  public List<MasterRoleDO> selectAll() {
     return super.selectList(new EntityWrapper<>());
   }
 }

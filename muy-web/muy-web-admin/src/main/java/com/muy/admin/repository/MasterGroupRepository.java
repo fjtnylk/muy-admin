@@ -14,5 +14,5 @@ public interface MasterGroupRepository extends IService<MasterGroupDO> {
    *
    * @return
    */
-  List<MasterGroupDO> selectAllGroup();
+  List<MasterGroupDO> selectAll();
 }

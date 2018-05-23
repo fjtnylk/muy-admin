@@ -3,11 +3,11 @@
         xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
         xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
 							http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
-    <cache alias="group">
+    <cache alias="master">
         <expiry>
             <ttl unit="days">30</ttl>
         </expiry>
-        <heap unit="MB">200</heap>
+        <heap unit="MB">100</heap>
         <jsr107:mbeans enable-statistics="true"/>
     </cache>
 </config>
