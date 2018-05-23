@@ -1,11 +1,11 @@
-drop schema if exists 'muy_admin';
-create schema 'muy_admin' default character set utf8 collate utf8_general_ci;
+drop schema if exists muy_admin;
+create schema muy_admin default character set utf8 collate utf8_general_ci;
 
 -- ----------------------------
 -- Table structure for my_group_role
 -- ----------------------------
-DROP TABLE IF EXISTS `my_group_role`;
-CREATE TABLE `my_group_role` (
+DROP TABLE IF EXISTS `muy_admin`.`my_group_role`;
+CREATE TABLE `muy_admin`.`my_group_role` (
   `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
   `g_code` varchar(3) NOT NULL DEFAULT '' COMMENT '组织编码',
   `r_code` varchar(3) NOT NULL DEFAULT '' COMMENT '角色编码',
@@ -17,8 +17,8 @@ CREATE TABLE `my_group_role` (
 -- ----------------------------
 -- Table structure for my_master_group
 -- ----------------------------
-DROP TABLE IF EXISTS `my_master_group`;
-CREATE TABLE `my_master_group` (
+DROP TABLE IF EXISTS `muy_admin`.`my_master_group`;
+CREATE TABLE `muy_admin`.`my_master_group` (
   `code` varchar(3) NOT NULL DEFAULT '' COMMENT '用户组编号',
   `name` varchar(20) DEFAULT '' COMMENT '用户组名称',
   `remark` varchar(50) DEFAULT '' COMMENT '备注',
@@ -30,8 +30,8 @@ CREATE TABLE `my_master_group` (
 -- ----------------------------
 -- Table structure for my_master_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `my_master_menu`;
-CREATE TABLE `my_master_menu` (
+DROP TABLE IF EXISTS `muy_admin`.`my_master_menu`;
+CREATE TABLE `muy_admin`.`my_master_menu` (
   `id` int(11) NOT NULL COMMENT '编号',
   `bpid` int(11) DEFAULT '0' COMMENT '父编号',
   `mpid` int(11) DEFAULT '0',
@@ -46,8 +46,8 @@ CREATE TABLE `my_master_menu` (
 -- ----------------------------
 -- Table structure for my_master_role
 -- ----------------------------
-DROP TABLE IF EXISTS `my_master_role`;
-CREATE TABLE `my_master_role` (
+DROP TABLE IF EXISTS `muy_admin`.`my_master_role`;
+CREATE TABLE `muy_admin`.`my_master_role` (
   `code` varchar(3) NOT NULL DEFAULT '' COMMENT '角色编码',
   `name` varchar(20) DEFAULT '' COMMENT '角色名称',
   `remark` varchar(50) DEFAULT '' COMMENT '备注',
@@ -58,8 +58,8 @@ CREATE TABLE `my_master_role` (
 -- ----------------------------
 -- Table structure for my_role_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `my_role_menu`;
-CREATE TABLE `my_role_menu` (
+DROP TABLE IF EXISTS `muy_admin`.`my_role_menu`;
+CREATE TABLE `muy_admin`.`my_role_menu` (
   `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
   `r_code` varchar(3) DEFAULT '' COMMENT '角色编码',
   `menu_id` int(11) DEFAULT '0' COMMENT '菜单编号',
@@ -71,8 +71,8 @@ CREATE TABLE `my_role_menu` (
 -- ----------------------------
 -- Table structure for my_user
 -- ----------------------------
-DROP TABLE IF EXISTS `my_user`;
-CREATE TABLE `my_user` (
+DROP TABLE IF EXISTS `muy_admin`.`my_user`;
+CREATE TABLE `muy_admin`.`my_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
   `user_name` varchar(32) DEFAULT '' COMMENT '用户名',
   `password` varchar(128) DEFAULT '' COMMENT '用户密码',
@@ -100,9 +100,9 @@ CREATE TABLE `my_user` (
 -- ----------------------------
 -- Table structure for my_user_group
 -- ----------------------------
-DROP TABLE IF EXISTS `my_user_group`;
-CREATE TABLE `my_user_group` (
-  `id` int(11) NOT NULL DEFAULT '0' COMMENT '主键',
+DROP TABLE IF EXISTS `muy_admin`.`my_user_group`;
+CREATE TABLE `muy_admin`.`my_user_group` (
+  `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
   `user_id` int(11) DEFAULT '0' COMMENT '用户编号',
   `g_code` varchar(3) DEFAULT '' COMMENT '组织编码',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -113,8 +113,8 @@ CREATE TABLE `my_user_group` (
 -- ----------------------------
 -- Table structure for my_user_role
 -- ----------------------------
-DROP TABLE IF EXISTS `my_user_role`;
-CREATE TABLE `my_user_role` (
+DROP TABLE IF EXISTS `muy_admin`.`my_user_role`;
+CREATE TABLE `muy_admin`.`my_user_role` (
   `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
   `user_id` int(11) DEFAULT '0' COMMENT '用户编号',
   `r_code` varchar(3) DEFAULT '' COMMENT '角色编码',

@@ -24,7 +24,7 @@ public class MasterMenuDO implements Serializable {
   private String icon;
   private String name;
   private String route;
-  @TableField(value = "creat_time")
+  @TableField(value = "create_time")
   private Date createTime;
   @TableField(value = "update_time")
   private Date updateTime;
