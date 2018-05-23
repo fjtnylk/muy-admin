@@ -1,16 +1,13 @@
 package com.muy.admin.web.controller;
 
-import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.query.CreateGroupQuery;
 import com.muy.admin.model.query.UpdateGroupQuery;
-import com.muy.admin.model.vo.LoadMasterGroupVO;
 import com.muy.admin.service.SystemSettingService;
-import com.muy.util.mapper.MapperUtil;
 import com.muy.util.wrapper.WrapMapper;
 import com.muy.util.wrapper.Wrapper;
-import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,20 +27,18 @@ public class SystemSettingController {
   @GetMapping(value = "/group/all/load")
   @ResponseBody
   public Wrapper loadAllGroup() {
-    List<MasterGroupDO> result = systemSettingService.loadAll4Group();
-
-    return WrapMapper.ok(MapperUtil.map(result, LoadMasterGroupVO.class));
+    return WrapMapper.ok(systemSettingService.loadAll4Group());
   }
 
   @PostMapping(value = "/group/create")
   @ResponseBody
-  public Wrapper createGroup(@RequestBody CreateGroupQuery query) {
+  public Wrapper createGroup(@Validated @RequestBody CreateGroupQuery query) {
     return WrapMapper.ok(systemSettingService.createMasterGroup(query));
   }
 
   @PostMapping(value = "/group/update")
   @ResponseBody
-  public Wrapper updateGroup(@RequestBody UpdateGroupQuery query) {
+  public Wrapper updateGroup(@Validated @RequestBody UpdateGroupQuery query) {
     return WrapMapper.ok(systemSettingService.updateMasterGroup(query));
   }
 }

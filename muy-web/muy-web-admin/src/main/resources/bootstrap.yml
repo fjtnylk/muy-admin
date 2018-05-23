@@ -10,10 +10,6 @@ spring:
     joda-date-time-format: yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  cache:
-    type: ehcache
-    ehcache:
-      config: ehcache.xml
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml
   typeAliasesPackage: com.muy.admin.model.domain

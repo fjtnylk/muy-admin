@@ -15,6 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "my_master_group")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class MasterGroupDO implements Serializable {
   @TableId(type = IdType.INPUT)
   private String code;

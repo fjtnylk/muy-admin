@@ -43,17 +43,12 @@ public class SystemSettingService {
    * @return
    */
   public boolean updateMasterGroup(UpdateGroupQuery query) {
-    //MasterGroupDO entity =
-    //    MasterGroupDO.builder()
-    //        .name(query.getName())
-    //        .remark(query.getRemark())
-    //        .updateTime(new Date())
-    //        .build();
-    MasterGroupDO entity = new MasterGroupDO();
+    MasterGroupDO entity = MapperUtil.map(query, MasterGroupDO.class);
+    entity.setUpdateTime(new Date());
 
     Wrapper wrapper =
         new EntityWrapper()
-            .where("code={0}", query.getCode());
+            .where("code={0}", entity.getCode());
 
     return masterGroupRepository.update(entity, wrapper);
   }
@@ -63,9 +58,7 @@ public class SystemSettingService {
    *
    * @return
    */
-  //@Cacheable(value = "masterGroup", key = "#root.caches[0].name")
   public List<MasterGroupDO> loadAll4Group() {
-    List<MasterGroupDO> result = masterGroupRepository.selectList(new EntityWrapper<>());
-    return result;
+    return masterGroupRepository.selectAllGroup();
   }
 }

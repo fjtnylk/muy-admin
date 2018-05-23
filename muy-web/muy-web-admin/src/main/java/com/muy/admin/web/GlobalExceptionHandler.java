@@ -8,6 +8,8 @@ import com.muy.util.wrapper.Wrapper;
 import java.nio.file.AccessDeniedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +32,16 @@ public class GlobalExceptionHandler {
   public Wrapper illegalArgumentException(IllegalArgumentException e) {
     log.error("参数非法异常={}", e.getMessage(), e);
     return WrapMapper.wrap(ErrorCodeEnum.GL99990400.code(), e.getMessage());
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Wrapper illegalArgumentException(MethodArgumentNotValidException e) {
+    ObjectError error = e.getBindingResult().getAllErrors().get(0);
+    String msg = error.getDefaultMessage();
+    log.error("参数非法异常={}", msg, e);
+    return WrapMapper.wrap(ErrorCodeEnum.GL99990400.code(), msg);
   }
 
   /**
