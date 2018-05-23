@@ -11,4 +11,10 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class UpdateMenuQuery implements Serializable {
+  private Integer id;
+  private Integer bpid;
+  private Integer mpid;
+  private String icon;
+  private String name;
+  private String route;
 }
