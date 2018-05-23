@@ -16,6 +16,7 @@ spring:
   cache:
     jcache:
       config: classpath:config/ehcache.xml
+    type: jcache
 #  redis:
 #    host: 127.0.0.1
 #    password: xceof

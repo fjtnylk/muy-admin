@@ -7,6 +7,8 @@ import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.repository.MasterGroupRepository;
 import java.util.List;
 import javax.annotation.Resource;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -20,11 +22,70 @@ public class MasterGroupRepositoryImpl
   private MasterGroupMapper groupMapper;
 
   /**
+   * 保存/更新组织信息.
+   *
+   * @param target
+   * @return
+   */
+  //@CachePut(value = "group", key = "#p0.code")
+  @Override
+  public boolean save(MasterGroupDO target) {
+    return super.insertOrUpdate(target);
+  }
+
+  /**
+   * 批量保存/更新组织信息.
+   *
+   * @param target
+   * @return
+   */
+  @Override
+  public boolean saveBatch(List<MasterGroupDO> target) {
+    return super.insertOrUpdateBatch(target);
+  }
+
+  /**
+   * 删除组织.
+   *
+   * @param gCode
+   * @return
+   */
+  //@CacheEvict(value = "group", key = "#p0")
+  @Override
+  public boolean delete(String gCode) {
+    return super.deleteById(gCode);
+  }
+
+  /**
+   * 批量删除组织.
+   *
+   * @param gCodeList
+   * @return
+   */
+  @Override
+  public boolean deleteBatch(List<String> gCodeList) {
+    return super.deleteBatchIds(gCodeList);
+  }
+
+  /**
+   * 查询组织信息.
+   *
+   * @param gCode
+   * @return
+   */
+  //@Cacheable(value = "group", key = "#p0")
+  @Override
+  public MasterGroupDO selectSignle(String gCode) {
+    return
+        super.selectOne(new EntityWrapper<MasterGroupDO>().where("code={0}", gCode));
+  }
+
+  /**
    * 查询所有组织信息.
    *
    * @return
    */
-  @Cacheable(value = "master", key = "#root.targetClass")
+  //@Cacheable(value = "group", key = "#root.targetClass")
   @Override
   public List<MasterGroupDO> selectAll() {
     return super.selectList(new EntityWrapper<>());

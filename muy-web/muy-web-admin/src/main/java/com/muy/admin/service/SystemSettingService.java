@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.domain.MasterRoleDO;
-import com.muy.admin.model.query.CreateGroupQuery;
 import com.muy.admin.model.query.CreateMenuQuery;
-import com.muy.admin.model.query.CreateRoleQuery;
-import com.muy.admin.model.query.UpdateGroupQuery;
+import com.muy.admin.model.query.SaveGroupQuery;
+import com.muy.admin.model.query.SaveRoleQuery;
 import com.muy.admin.model.query.UpdateMenuQuery;
-import com.muy.admin.model.query.UpdateRoleQuery;
 import com.muy.admin.repository.MasterGroupRepository;
 import com.muy.admin.repository.MasterMenuRepository;
 import com.muy.admin.repository.MasterRoleRepository;
@@ -36,31 +34,45 @@ public class SystemSettingService {
   // ============================================Group start=============================================
 
   /**
-   * 创建组织.
+   * 保存/更新组织信息.
    *
    * @param query
    * @return
    */
-  public boolean create4Group(CreateGroupQuery query) {
+  public boolean save4Group(SaveGroupQuery query) {
     MasterGroupDO target = MapperUtil.map(query, MasterGroupDO.class);
-    return groupRepository.insert(target);
+    return groupRepository.save(target);
   }
 
   /**
-   * 更新组织.
+   * 批量保存/更新组织信息.
    *
    * @param query
    * @return
    */
-  public boolean update4Group(UpdateGroupQuery query) {
-    MasterGroupDO entity = MapperUtil.map(query, MasterGroupDO.class);
-    entity.setUpdateTime(new Date());
+  public boolean saveBatch4Group(List<SaveGroupQuery> query) {
+    List<MasterGroupDO> target = MapperUtil.map(query, MasterGroupDO.class);
+    return groupRepository.saveBatch(target);
+  }
 
-    Wrapper wrapper =
-        new EntityWrapper()
-            .where("code={0}", entity.getCode());
+  /**
+   * 删除组织信息.
+   *
+   * @param groupCode
+   * @return
+   */
+  public boolean delete4Group(String groupCode) {
+    return groupRepository.delete(groupCode);
+  }
 
-    return groupRepository.update(entity, wrapper);
+  /**
+   * 批量删除组织信息.
+   *
+   * @param groupCodeList
+   * @return
+   */
+  public boolean deleteBatch4Group(List<String> groupCodeList) {
+    return groupRepository.deleteBatch(groupCodeList);
   }
 
   /**
@@ -72,34 +84,72 @@ public class SystemSettingService {
     return groupRepository.selectAll();
   }
 
+  /**
+   * 加载单条组织信息.
+   *
+   * @param groupCode
+   * @return
+   */
+  public MasterGroupDO loadSignle4Group(String groupCode) {
+    return groupRepository.selectSignle(groupCode);
+  }
+
   // ============================================Group end  =============================================
 
   // ============================================Role start=============================================
 
   /**
-   * 创建角色.
+   * 保存/更新角色信息.
    *
    * @param query
    * @return
    */
-  public boolean create4Role(CreateRoleQuery query) {
+  public boolean save4Role(SaveRoleQuery query) {
     MasterRoleDO target = MapperUtil.map(query, MasterRoleDO.class);
-    return roleRepository.insert(target);
+
+    return roleRepository.save(target);
   }
 
   /**
-   * 更新角色信息.
+   * 批量保存/更新角色信息.
    *
    * @param query
    * @return
    */
-  public boolean update4Role(UpdateRoleQuery query) {
-    MasterRoleDO entity = MapperUtil.map(query, MasterRoleDO.class);
-    entity.setUpdateTime(new Date());
+  public boolean saveBatch4Role(List<SaveRoleQuery> query) {
+    List<MasterRoleDO> target = MapperUtil.map(query, MasterRoleDO.class);
 
-    Wrapper wrapper = new EntityWrapper().where("code={0}", entity.getCode());
+    return roleRepository.saveBatch(target);
+  }
 
-    return roleRepository.update(entity, wrapper);
+  /**
+   * 删除角色信息.
+   *
+   * @param roleCode
+   * @return
+   */
+  public boolean delete4Role(String roleCode) {
+    return roleRepository.delete(roleCode);
+  }
+
+  /**
+   * 批量删除角色信息.
+   *
+   * @param roleCodeList
+   * @return
+   */
+  public boolean deleteBatch4Role(List<String> roleCodeList) {
+    return roleRepository.deleteBatch(roleCodeList);
+  }
+
+  /**
+   * 加载单个角色信息.
+   *
+   * @param roleCode
+   * @return
+   */
+  public MasterRoleDO loadSignle4Role(String roleCode) {
+    return roleRepository.selectSignle(roleCode);
   }
 
   /**
