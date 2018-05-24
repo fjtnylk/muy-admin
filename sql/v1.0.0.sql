@@ -6,12 +6,12 @@ create schema muy_admin default character set utf8 collate utf8_general_ci;
 -- ----------------------------
 DROP TABLE IF EXISTS `muy_admin`.`my_group_role`;
 CREATE TABLE `muy_admin`.`my_group_role` (
-  `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
+  `pkey` varchar(7) NOT NULL DEFAULT '' COMMENT '主键(g_code|r_code)',
   `g_code` varchar(3) NOT NULL DEFAULT '' COMMENT '组织编码',
   `r_code` varchar(3) NOT NULL DEFAULT '' COMMENT '角色编码',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`pkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织角色表';
 
 -- ----------------------------
@@ -32,9 +32,9 @@ CREATE TABLE `muy_admin`.`my_master_group` (
 -- ----------------------------
 DROP TABLE IF EXISTS `muy_admin`.`my_master_menu`;
 CREATE TABLE `muy_admin`.`my_master_menu` (
-  `id` int(11) NOT NULL COMMENT '编号',
-  `bpid` int(11) DEFAULT '0' COMMENT '父编号',
-  `mpid` int(11) DEFAULT '0',
+  `id` int(5) NOT NULL COMMENT '编号',
+  `bpid` int(5) DEFAULT '0' COMMENT '父编号',
+  `mpid` int(5) DEFAULT '0',
   `icon` varchar(20) DEFAULT '' COMMENT '图标',
   `name` varchar(32) DEFAULT '' COMMENT '名称',
   `route` varchar(64) DEFAULT '' COMMENT '路由地址',
@@ -60,12 +60,12 @@ CREATE TABLE `muy_admin`.`my_master_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `muy_admin`.`my_role_menu`;
 CREATE TABLE `muy_admin`.`my_role_menu` (
-  `id` bigint(20) NOT NULL DEFAULT '0' COMMENT '主键',
+  `pkey` varchar(9) NOT NULL DEFAULT '' COMMENT '主键(r_code|menu_id)',
   `r_code` varchar(3) DEFAULT '' COMMENT '角色编码',
-  `menu_id` int(11) DEFAULT '0' COMMENT '菜单编号',
+  `menu_id` int(5) DEFAULT '0' COMMENT '菜单编号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`pkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单角色表';
 
 -- ----------------------------

@@ -12,14 +12,15 @@ import lombok.Data;
  * Created by yanglikai on 2018/5/21.
  */
 @Data
-@Builder
 @TableName(value = "my_role_menu")
 public class RoleMenuDO implements Serializable {
   @TableId
   private Long id;
-  @TableField("r_code")
+  @TableField(value = "r_code")
   private String roleCode;
   private Integer menuId;
+  @TableField(value = "create_time")
   private Date createTime;
+  @TableField(value = "update_time")
   private Date updateTime;
 }
