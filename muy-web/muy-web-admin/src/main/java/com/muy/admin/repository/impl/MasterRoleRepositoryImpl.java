@@ -6,7 +6,6 @@ import com.muy.admin.mapper.MasterRoleMapper;
 import com.muy.admin.model.domain.MasterRoleDO;
 import com.muy.admin.repository.MasterRoleRepository;
 import java.util.List;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MasterRoleRepositoryImpl
     extends ServiceImpl<MasterRoleMapper, MasterRoleDO> implements MasterRoleRepository {
-  @Resource
-  private MasterRoleMapper roleMapper;
 
   /**
    * 保存/更新角色信息.

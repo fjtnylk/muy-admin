@@ -1,5 +1,6 @@
 package com.muy.util.wrapper;
 
+import com.muy.base.enums.ErrorCodeEnum;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -39,6 +40,10 @@ public final class WrapMapper {
 
   public static <E> Wrapper<E> error(String message) {
     return wrap(Wrapper.ERROR_CODE, StringUtils.isBlank(message) ? Wrapper.ERROR_MESSAGE : message);
+  }
+
+  public static <E> Wrapper<E> error(ErrorCodeEnum errorCodeEnum) {
+    return wrap(errorCodeEnum.code(), errorCodeEnum.msg());
   }
 
   public static <E> Wrapper<E> ok() {

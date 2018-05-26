@@ -15,8 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class GroupRoleRepositoryImpl
     extends ServiceImpl<GroupRoleMapper, GroupRoleDO> implements GroupRoleRepository {
-  @Resource
-  private GroupRoleMapper groupRoleMapper;
 
   /**
    * 保存/更新组织角色信息.

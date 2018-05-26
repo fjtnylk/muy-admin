@@ -86,7 +86,7 @@ CREATE TABLE `muy_admin`.`my_user` (
   `avater` varchar(64) DEFAULT '' COMMENT '头像',
   `address` varchar(128) DEFAULT '{}' COMMENT '地址{''prov'':'''',''city'':'''', ''district'':'''', ''street'':''''}',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态(0-可用、1-禁用、2-冻结)',
-  `user_source` varchar(4) DEFAULT '' COMMENT '用户来源',
+  `user_source` varchar(12) DEFAULT '' COMMENT '用户来源',
   `last_login_ip` varchar(15) DEFAULT '' COMMENT '最后登录IP',
   `last_login_location` varchar(64) DEFAULT '{}' COMMENT '最后登录位置{''lat'':xxx.xxx,''lnt'':xxx.xxx}',
   `last_login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间',

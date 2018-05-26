@@ -15,8 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MasterMenuRepositoryImpl
     extends ServiceImpl<MasterMenuMapper, MasterMenuDO> implements MasterMenuRepository {
-  @Resource
-  private MasterMenuMapper menuMapper;
 
   /**
    * 保存/更新菜单信息.

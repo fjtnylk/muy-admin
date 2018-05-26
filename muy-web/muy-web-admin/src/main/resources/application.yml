@@ -41,4 +41,12 @@ spring:
         allow:
         login-username: admin
         login-password: admin
-
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  typeAliasesPackage: com.muy.admin.model.domain
+  global-config:
+    id-type: 2
+    field-strategy: 2
+    db-column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true

@@ -6,10 +6,6 @@ import com.muy.admin.mapper.MasterGroupMapper;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.repository.MasterGroupRepository;
 import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,8 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MasterGroupRepositoryImpl
     extends ServiceImpl<MasterGroupMapper, MasterGroupDO> implements MasterGroupRepository {
-  @Resource
-  private MasterGroupMapper groupMapper;
 
   /**
    * 保存/更新组织信息.

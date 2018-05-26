@@ -6,7 +6,6 @@ import com.muy.admin.mapper.RoleMenuMapper;
 import com.muy.admin.model.domain.RoleMenuDO;
 import com.muy.admin.repository.RoleMenuRepository;
 import java.util.List;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RoleMenuRepositoryImpl
     extends ServiceImpl<RoleMenuMapper, RoleMenuDO> implements RoleMenuRepository {
-  @Resource
-  private RoleMenuMapper roleMenuMapper;
 
   /**
    * 保存/更新角色菜单信息.

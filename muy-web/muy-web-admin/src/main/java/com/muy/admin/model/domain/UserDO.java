@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.muy.util.mapper.annotation.MapperProperty;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Builder;
@@ -13,7 +14,6 @@ import lombok.Data;
  * Created by yanglikai on 2018/5/21.
  */
 @Data
-@Builder
 @TableName(value = "my_user")
 public class UserDO implements Serializable {
   @TableId(type = IdType.AUTO)
@@ -28,6 +28,7 @@ public class UserDO implements Serializable {
   private String signature;         // 签名
   private String sex;               // 性别(F-女,M-男)
   private String avater;            // 头像
+  private String address;           // 地址
   private Integer status;           // 状态(0-可用、1-禁用、2-冻结)
   private String userSource;        // 用户来源
   private String lastLoginIp;       // 最后登录IP

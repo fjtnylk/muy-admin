@@ -21,6 +21,7 @@
         <module>muy-common-util</module>
         <module>muy-common-config</module>
         <module>muy-common-core</module>
+        <module>muy-security-core</module>
     </modules>
 
     <dependencies>

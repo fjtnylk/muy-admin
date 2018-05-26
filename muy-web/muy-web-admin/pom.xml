@@ -17,6 +17,11 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>com.muy</groupId>
+            <artifactId>muy-security-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <!--spring boot-->
         <dependency>
