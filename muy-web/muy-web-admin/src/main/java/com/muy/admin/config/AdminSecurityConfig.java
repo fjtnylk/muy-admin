@@ -1,4 +1,4 @@
-package com.muy.security.core;
+package com.muy.admin.config;
 
 import com.muy.security.core.authentication.password.PasswordAuthenticationSecurityConfig;
 import com.muy.security.core.authentication.sms.SMSAuthenticationSecurityConfig;
@@ -19,11 +19,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * Created by yanglikai on 2018/5/25.
  */
 @Configuration
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
   @Resource
   private PasswordAuthenticationSecurityConfig passwordAuthenticationSecurityConfig;
-  @Resource
-  private SMSAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
   @Resource
   private AccessDeniedHandler accessDeniedHandler;
   @Resource
@@ -43,8 +41,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.apply(passwordAuthenticationSecurityConfig)
         .and()
-        .apply(smsAuthenticationSecurityConfig)
-        .and()
+        //.apply(smsAuthenticationSecurityConfig)
+        //.and()
         //.authorizeRequests()
         //.antMatchers(SecurityConstant.DEFAULT_SIGN_IN_PROCESSING_URL_PASSWORD).permitAll()
         //.antMatchers("/admin/**").hasRole(SecurityConstant.ROLE_USER)
