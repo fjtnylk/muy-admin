@@ -7,6 +7,7 @@ import com.muy.base.exception.BizException;
 import com.muy.security.core.SecurityUser;
 import com.muy.security.core.authentication.password.PasswordAuthenticationToken;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by yanglikai on 2018/5/25.
  */
+@Slf4j
 @Component
 public class UserDetailsServiceImpl implements AuthenticationUserDetailsService<PasswordAuthenticationToken> {
   @Resource
