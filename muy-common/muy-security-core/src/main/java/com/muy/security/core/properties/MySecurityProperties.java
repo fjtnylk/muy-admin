@@ -9,5 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "muy.security")
-public class MuySecurityProperties {
+public class MySecurityProperties {
+
+  /**
+   * OAuth2客户端认证配置
+   */
+  private OAuth2Properties oauth2 = new OAuth2Properties();
 }

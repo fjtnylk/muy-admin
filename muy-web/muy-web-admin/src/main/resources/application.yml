@@ -50,3 +50,12 @@ mybatis-plus:
     db-column-underline: true
   configuration:
     map-underscore-to-camel-case: true
+
+muy:
+  security:
+    oauth2:
+      clients[0]:
+        clientId: muy-web-admin
+        clientSecret: muyClientSecret
+        scope: "*"
+        accessTokenValidateSeconds: 7200

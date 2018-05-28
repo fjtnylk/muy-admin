@@ -1,7 +1,7 @@
 package com.muy.security.core;
 
 import com.muy.security.core.authentication.AuthenticationCoreConfig;
-import com.muy.security.core.properties.MuySecurityProperties;
+import com.muy.security.core.properties.MySecurityProperties;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ImportAutoConfiguration({AuthenticationCoreConfig.class})
-@EnableConfigurationProperties(MuySecurityProperties.class)
+@EnableConfigurationProperties(MySecurityProperties.class)
 public class SecurityCoreConfig {
 }
