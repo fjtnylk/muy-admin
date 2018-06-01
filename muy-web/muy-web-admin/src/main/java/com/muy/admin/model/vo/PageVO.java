@@ -14,5 +14,6 @@ import lombok.Data;
 public class PageVO<T> implements Serializable {
   private long total;
   private int current;
+  private int pageSize;
   private List<T> list;
 }

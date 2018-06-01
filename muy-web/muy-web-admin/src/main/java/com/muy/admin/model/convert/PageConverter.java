@@ -17,6 +17,7 @@ public class PageConverter {
     PageVO target = new PageVO();
     target.setTotal(page.getTotal());
     target.setCurrent(page.getCurrent());
+    target.setPageSize(page.getSize());
     target.setList(page.getRecords());
 
     return target;
