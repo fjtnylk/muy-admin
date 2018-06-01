@@ -2,9 +2,9 @@ package com.muy.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.convert.PageConverter;
-import com.muy.admin.model.domain.MasterRoleDO;
-import com.muy.admin.model.query.DeleteRoleQuery;
-import com.muy.admin.model.query.SaveRoleQuery;
+import com.muy.admin.model.domain.MasterGroupDO;
+import com.muy.admin.model.query.DeleteGroupQuery;
+import com.muy.admin.model.query.SaveGroupQuery;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.base.constant.GlobalConstant;
 import com.muy.util.wrapper.WrapMapper;
@@ -20,55 +20,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by yanglikai on 2018/5/31.
+ * Created by yanglikai on 2018/6/1.
  */
 @RestController
 @RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class RoleController {
+public class GroupController {
   @Resource
   private SystemSettingService systemSettingService;
 
-  // ============================================Role start=============================================
-
+  // ============================================Group start=============================================
   /**
-   * 分页加载角色信息.
+   * 分页加载组织信息.
    *
    * @return
    */
-  @GetMapping(value = "/roles")
+  @GetMapping(value = "/groups")
   @ResponseBody
   public Wrapper loadPage(Integer page, Integer pageSize) {
     int current = page == null ? 1 : page;
     int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
-    Page<MasterRoleDO> rolesPage = systemSettingService.loadPage4Role(current, size);
+    Page<MasterGroupDO> groupPage = systemSettingService.loadPage4Group(current, size);
 
-    PageConverter convert = new PageConverter(rolesPage);
+    PageConverter converter = new PageConverter(groupPage);
 
-    return WrapMapper.ok(convert.convert());
+    return WrapMapper.ok(converter.convert());
   }
 
   /**
-   * 保存/更新角色信息.
+   * 保存/更新组织信息.
    *
    * @param query
    * @return
    */
-  @PostMapping(value = "/roles/save")
+  @PostMapping(value = "/groups/save")
   @ResponseBody
-  public Wrapper saveRole(@Validated @RequestBody SaveRoleQuery query) {
-    return WrapMapper.ok(systemSettingService.save4Role(query));
+  public Wrapper saveGroup(@Validated @RequestBody SaveGroupQuery query) {
+    return WrapMapper.ok(systemSettingService.save4Group(query));
   }
 
   /**
-   * 删除角色信息.
+   * 删除组织信息.
    *
    * @param query
    * @return
    */
-  @PostMapping(value = "/roles/delete")
+  @PostMapping(value = "/groups/delete")
   @ResponseBody
-  public Wrapper deleteRole(@Validated @RequestBody DeleteRoleQuery query) {
-    return WrapMapper.ok(systemSettingService.delete4Role(query.getCode()));
+  public Wrapper deleteGroup(@Validated @RequestBody DeleteGroupQuery query) {
+    return WrapMapper.ok(systemSettingService.delete4Group(query.getCode()));
   }
-  // ============================================Role end  =============================================
+  // ============================================Group end  =============================================
 }

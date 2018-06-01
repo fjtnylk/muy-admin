@@ -83,6 +83,20 @@ public class SystemSettingService {
   }
 
   /**
+   * 分页加载组织信息.
+   *
+   * @param page
+   * @param size
+   * @return
+   */
+  public Page<MasterGroupDO> loadPage4Group(int page, int size) {
+    return
+        groupRepository.selectPage(
+            new Page<>(page, size),
+            new EntityWrapper<MasterGroupDO>().orderBy("create_time", false));
+  }
+
+  /**
    * 加载单条组织信息.
    *
    * @param groupCode

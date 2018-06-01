@@ -18,6 +18,8 @@ public final class GlobalConstant {
   public static final String LOCALHOST_IP_16 = "0:0:0:0:0:0:0:1";
   public static final int MAX_IP_LENGTH = 15;
 
+  public static final int DEFAULT_PAGE_SIZE = 10;
+
   /**
    * 数值
    */
