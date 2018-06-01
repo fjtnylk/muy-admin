@@ -1,5 +1,7 @@
 package com.muy.admin.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.domain.MasterRoleDO;
@@ -155,6 +157,19 @@ public class SystemSettingService {
    */
   public List<MasterRoleDO> loadAll4Role() {
     return roleRepository.selectAll();
+  }
+
+  /**
+   * 分页加载.
+   *
+   * @param current
+   * @param size
+   * @return
+   */
+  public Page<MasterRoleDO> loadPage4Role(Integer current, Integer size) {
+    return roleRepository.selectPage(
+        new Page<>(current, size),
+        new EntityWrapper().orderBy("create_time", false));
   }
   // ============================================Role end  =============================================
 

@@ -79,6 +79,6 @@ public class MasterRoleRepositoryImpl
   //@Cacheable(value = "master", key = "#root.targetClass")
   @Override
   public List<MasterRoleDO> selectAll() {
-    return super.selectList(new EntityWrapper<>());
+    return super.selectList(new EntityWrapper<MasterRoleDO>().orderBy("create_time", false));
   }
 }
