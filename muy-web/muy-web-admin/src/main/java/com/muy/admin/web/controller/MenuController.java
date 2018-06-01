@@ -1,10 +1,10 @@
 package com.muy.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.muy.admin.model.convert.PageConverter;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.query.DeleteMenuQuery;
 import com.muy.admin.model.query.SaveMenuQuery;
+import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.base.constant.GlobalConstant;
 import com.muy.util.wrapper.WrapMapper;
@@ -54,9 +54,9 @@ public class MenuController {
 
     Page<MasterMenuDO> menuPage = systemSettingService.loadPage4Menu(current, size);
 
-    PageConverter converter = new PageConverter(menuPage);
-
-    return WrapMapper.ok(converter.convert());
+    return
+        WrapMapper.ok(
+            PageWrapper.wrap(menuPage));
   }
 
   /**

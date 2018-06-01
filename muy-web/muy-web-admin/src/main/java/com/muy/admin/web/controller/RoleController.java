@@ -1,10 +1,10 @@
 package com.muy.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.muy.admin.model.convert.PageConverter;
 import com.muy.admin.model.domain.MasterRoleDO;
 import com.muy.admin.model.query.DeleteRoleQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
+import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.base.constant.GlobalConstant;
 import com.muy.util.wrapper.WrapMapper;
@@ -40,11 +40,12 @@ public class RoleController {
   public Wrapper loadPage(Integer page, Integer pageSize) {
     int current = page == null ? 1 : page;
     int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
+
     Page<MasterRoleDO> rolesPage = systemSettingService.loadPage4Role(current, size);
 
-    PageConverter convert = new PageConverter(rolesPage);
-
-    return WrapMapper.ok(convert.convert());
+    return
+        WrapMapper.ok(
+            PageWrapper.wrap(rolesPage));
   }
 
   /**

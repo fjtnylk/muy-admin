@@ -1,10 +1,10 @@
 package com.muy.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.muy.admin.model.convert.PageConverter;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.query.DeleteGroupQuery;
 import com.muy.admin.model.query.SaveGroupQuery;
+import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.base.constant.GlobalConstant;
 import com.muy.util.wrapper.WrapMapper;
@@ -29,6 +29,7 @@ public class GroupController {
   private SystemSettingService systemSettingService;
 
   // ============================================Group start=============================================
+
   /**
    * 分页加载组织信息.
    *
@@ -41,9 +42,9 @@ public class GroupController {
     int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
     Page<MasterGroupDO> groupPage = systemSettingService.loadPage4Group(current, size);
 
-    PageConverter converter = new PageConverter(groupPage);
-
-    return WrapMapper.ok(converter.convert());
+    return
+        WrapMapper.ok(
+            PageWrapper.wrap(groupPage));
   }
 
   /**
