@@ -251,5 +251,19 @@ public class SystemSettingService {
   public List<MasterMenuDO> loadAll4Menu() {
     return menuRepository.selectAll();
   }
+
+  /**
+   * 分页加载菜单信息.
+   *
+   * @param current
+   * @param size
+   * @return
+   */
+  public Page<MasterMenuDO> loadPage4Menu(int current, int size) {
+    return
+        menuRepository.selectPage(
+            new Page<>(current, size),
+            new EntityWrapper<MasterMenuDO>().orderBy("create_time", false));
+  }
   // ============================================Menu end  =============================================
 }
