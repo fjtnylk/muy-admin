@@ -17,7 +17,12 @@ public final class PageWrapper {
   private static final PageConverter convert = new PageConverter();
 
   public static PageVO wrap(Page page) {
-    Pagination pagination = MapperUtil.map(page, Pagination.class);
+    Pagination pagination = new Pagination();
+    pagination.setRecords(page.getRecords());
+    pagination.setTotal(page.getTotal());
+    pagination.setCurrent(page.getCurrent());
+    pagination.setPages(page.getPages());
+    pagination.setSize(page.getSize());
 
     return convert.convert(pagination);
   }
