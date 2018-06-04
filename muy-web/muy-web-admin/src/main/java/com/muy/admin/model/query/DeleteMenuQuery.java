@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class DeleteMenuQuery implements Serializable {
-  @NotNull(message = "[menuId]不允许为空")
-  @Max(value = 99999, message = "[menuId]最大值为99999")
-  private Integer menuId;
+  @NotNull(message = "[id]不允许为空")
+  @Max(value = 99999, message = "[id]最大值为99999")
+  private Integer id;
 }

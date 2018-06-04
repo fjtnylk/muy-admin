@@ -35,7 +35,7 @@ public class MenuController {
    *
    * @return
    */
-  @GetMapping(value = "/menus")
+  @GetMapping(value = "/menus/all")
   @ResponseBody
   public Wrapper loadMenus() {
     return WrapMapper.ok(systemSettingService.loadAll4Menu());
@@ -46,7 +46,7 @@ public class MenuController {
    *
    * @return
    */
-  @GetMapping(value = "/menus/page")
+  @GetMapping(value = "/menus")
   @ResponseBody
   public Wrapper loadPage(Integer page, Integer pageSize) {
     int current = page == null ? 1 : page;
@@ -80,7 +80,7 @@ public class MenuController {
   @PostMapping(value = "/menus/delete")
   @ResponseBody
   public Wrapper deleteMenu(@Validated @RequestBody DeleteMenuQuery query) {
-    return WrapMapper.ok(systemSettingService.delete4Menu(query.getMenuId()));
+    return WrapMapper.ok(systemSettingService.delete4Menu(query.getId()));
   }
   // ============================================Menu end  =============================================
 }

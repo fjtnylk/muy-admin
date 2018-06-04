@@ -263,7 +263,7 @@ public class SystemSettingService {
     return
         menuRepository.selectPage(
             new Page<>(current, size),
-            new EntityWrapper<MasterMenuDO>().orderBy("create_time", false));
+            new EntityWrapper<MasterMenuDO>().orderBy("id", true).orderBy("create_time", false));
   }
   // ============================================Menu end  =============================================
 }
