@@ -19,13 +19,5 @@ public class SaveGroupRoleQuery implements Serializable {
   @Length(max = 3, message = "[groupCode]最大长度为3")
   private String groupCode;
   @NotNull
-  private List<SaveRole> roles;
-
-  @Data
-  @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-  public static class SaveRole {
-    @NotBlank(message = "[roleCode]不允许为空")
-    @Length(max = 3, message = "[roleCode]最大长度为3")
-    private String roleCode;
-  }
+  private List<String> roles;
 }

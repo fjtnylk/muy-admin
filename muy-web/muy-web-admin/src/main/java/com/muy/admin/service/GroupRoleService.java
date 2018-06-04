@@ -6,7 +6,6 @@ import com.muy.admin.model.query.DeleteGroupRoleQuery;
 import com.muy.admin.model.query.SaveGroupRoleQuery;
 import com.muy.admin.repository.GroupRoleRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,10 @@ public class GroupRoleService {
    * @return
    */
   public boolean save(SaveGroupRoleQuery query) {
+    if (query.getRoles().size() == 0) {
+      return groupRoleRepository.delete(query.getGroupCode());
+    }
+
     List<GroupRoleDO> target = parse(query);
 
     return groupRoleRepository.save(target);
@@ -49,10 +52,7 @@ public class GroupRoleService {
   private List<GroupRoleDO> parse(SaveGroupRoleQuery query) {
     String groupCode = query.getGroupCode();
 
-    List<String> roles =
-        query.getRoles().stream()
-            .map(el -> el.getRoleCode())
-            .collect(Collectors.toList());
+    List<String> roles = query.getRoles();
 
     List<GroupRoleDO> target = Lists.newArrayListWithCapacity(roles.size());
     for (String role : roles) {
