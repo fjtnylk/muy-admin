@@ -8,6 +8,7 @@ import com.muy.admin.repository.GroupRoleRepository;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by yanglikai on 2018/5/24.
@@ -23,14 +24,14 @@ public class GroupRoleService {
    * @param query
    * @return
    */
+  @Transactional(rollbackFor = Exception.class)
   public boolean save(SaveGroupRoleQuery query) {
-    if (query.getRoles().size() == 0) {
-      return groupRoleRepository.delete(query.getGroupCode());
-    }
+    String groupCode = query.getGroupCode();
 
     List<GroupRoleDO> target = parse(query);
-
-    return groupRoleRepository.save(target);
+    groupRoleRepository.delete(groupCode);
+    groupRoleRepository.save(target);
+    return true;
   }
 
   /**

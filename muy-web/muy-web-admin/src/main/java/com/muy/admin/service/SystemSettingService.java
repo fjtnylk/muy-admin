@@ -8,6 +8,7 @@ import com.muy.admin.model.domain.MasterRoleDO;
 import com.muy.admin.model.query.SaveGroupQuery;
 import com.muy.admin.model.query.SaveMenuQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
+import com.muy.admin.repository.GroupRoleRepository;
 import com.muy.admin.repository.MasterGroupRepository;
 import com.muy.admin.repository.MasterMenuRepository;
 import com.muy.admin.repository.MasterRoleRepository;
@@ -15,6 +16,7 @@ import com.muy.util.mapper.MapperUtil;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 系统设置.
@@ -28,6 +30,8 @@ public class SystemSettingService {
   private MasterRoleRepository roleRepository;
   @Resource
   private MasterMenuRepository menuRepository;
+  @Resource
+  private GroupRoleRepository groupRoleRepository;
 
   // ============================================Group start=============================================
 
@@ -59,8 +63,11 @@ public class SystemSettingService {
    * @param groupCode
    * @return
    */
+  @Transactional(rollbackFor = Exception.class)
   public boolean delete4Group(String groupCode) {
-    return groupRepository.delete(groupCode);
+    groupRepository.delete(groupCode);
+    groupRoleRepository.delete(groupCode);
+    return true;
   }
 
   /**
