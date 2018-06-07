@@ -1,11 +1,8 @@
 package com.muy.admin.service;
 
 import com.google.common.collect.Lists;
-import com.muy.admin.model.domain.GroupRoleDO;
 import com.muy.admin.model.domain.RoleMenuDO;
-import com.muy.admin.model.query.DeleteGroupRoleQuery;
 import com.muy.admin.model.query.DeleteRoleMenuQuery;
-import com.muy.admin.model.query.SaveGroupRoleQuery;
 import com.muy.admin.model.query.SaveRoleMenuQuery;
 import com.muy.admin.repository.RoleMenuRepository;
 import java.util.List;
@@ -53,8 +50,8 @@ public class RoleMenuService {
     String roleCode = query.getRoleCode();
 
     List<Integer> menus =
-        query.getMenus().stream()
-            .map(el -> el.getMenuId())
+        query.getMenus()
+            .stream().map( el -> Integer.valueOf(el))
             .collect(Collectors.toList());
 
     List<RoleMenuDO> target = Lists.newArrayListWithCapacity(menus.size());

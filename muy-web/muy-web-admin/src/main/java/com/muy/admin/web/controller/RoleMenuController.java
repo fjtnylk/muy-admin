@@ -1,17 +1,23 @@
 package com.muy.admin.web.controller;
 
-import com.muy.admin.model.query.DeleteRoleMenuQuery;
+import com.muy.admin.model.domain.MasterMenuDO;
+import com.muy.admin.model.domain.RoleMenuDO;
 import com.muy.admin.model.query.SaveRoleMenuQuery;
+import com.muy.admin.model.vo.LoadBindRoleVO;
+import com.muy.admin.model.vo.TransferItemVO;
 import com.muy.admin.service.RoleMenuService;
+import com.muy.admin.service.SystemSettingService;
+import com.muy.util.mapper.MapperUtil;
 import com.muy.util.wrapper.WrapMapper;
 import com.muy.util.wrapper.Wrapper;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
-import javax.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by yanglikai on 2018/5/24.
  */
 @RestController
-@RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class RoleMenuController {
   @Resource
   private RoleMenuService roleMenuService;
+  @Resource
+  private SystemSettingService systemSettingService;
 
   /**
    * 保存/更新角色菜单信息.
@@ -33,56 +41,40 @@ public class RoleMenuController {
    * @param query
    * @return
    */
-  @PostMapping(value = "/role/menu/save")
+  @PostMapping(value = "/roles/menu/save")
   @ResponseBody
   public Wrapper save(@Validated @RequestBody SaveRoleMenuQuery query) {
     return WrapMapper.ok(roleMenuService.save(query));
   }
 
   /**
-   * 批量保存/更新角色菜单信息.
-   *
-   * @param query
-   * @return
-   */
-  @PostMapping(value = "/role/menu/batch/save")
-  @ResponseBody
-  public Wrapper saveBatch(@Valid @RequestBody List<SaveRoleMenuQuery> query) {
-    return WrapMapper.ok(roleMenuService.save(query));
-  }
-
-  /**
-   * 删除角色菜单信息.
-   *
-   * @param query
-   * @return
-   */
-  @PostMapping(value = "/role/menu/delete")
-  @ResponseBody
-  public Wrapper delete(@Validated @RequestBody DeleteRoleMenuQuery query) {
-    return WrapMapper.ok(roleMenuService.delete(query));
-  }
-
-  /**
-   * 加载指定角色下菜单信息.
+   * 角色、菜单绑定信息.
    *
    * @param roleCode
    * @return
    */
-  @GetMapping(value = "/role/{roleCode}/menu")
+  @GetMapping(value = "/roles/bind/menu")
   @ResponseBody
-  public Wrapper load(@PathVariable("roleCode") String roleCode) {
-    return WrapMapper.ok(roleMenuService.load(roleCode));
-  }
+  public Wrapper loadBindRoleMenus(String roleCode) {
+    /* 加载所有菜单 */
+    List<MasterMenuDO> allMenus =
+        systemSettingService.loadAll4Menu()
+            .stream()
+            .filter(el -> StringUtils.isNotBlank(el.getRoute())).collect(Collectors.toList());
+    if (allMenus == null) {
+      return WrapMapper.error("请先创建菜单信息");
+    }
 
-  /**
-   * 加载所有角色菜单信息.
-   *
-   * @return
-   */
-  @GetMapping(value = "/role/menu/all")
-  @ResponseBody
-  public Wrapper loadAll() {
-    return WrapMapper.ok(roleMenuService.loadAll());
+    /* 加载目标角色下绑定菜单 */
+    List<RoleMenuDO> roleMenus = roleMenuService.load(roleCode);
+
+    LoadBindRoleVO result = new LoadBindRoleVO();
+    result.setSource(MapperUtil.map(allMenus, TransferItemVO.class));
+    result.setTargetKeys(
+        roleMenus == null
+            ? new ArrayList<>()
+            : roleMenus.stream().map(el -> String.valueOf(el.getMenuId())).collect(Collectors.toList()));
+
+    return WrapMapper.ok(result);
   }
 }

@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 
 /**
  * Created by yanglikai on 2018/5/24.
@@ -20,12 +19,5 @@ public class SaveRoleMenuQuery implements Serializable {
   @Length(max = 3, message = "[roleCode]最大长度为3")
   private String roleCode;
   @NotNull
-  private List<SaveMenu> menus;
-
-  @Data
-  @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-  public static class SaveMenu {
-    @Range(min = 1, max = 99999, message = "[menuId]最大值为99999")
-    private Integer menuId;
-  }
+  private List<String> menus;
 }

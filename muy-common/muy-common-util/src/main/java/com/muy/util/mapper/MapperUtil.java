@@ -58,7 +58,13 @@ public final class MapperUtil {
         continue;
       }
 
-      classMapBuilder.field(mapperProperty.value(), field.getName());
+      for (String el : mapperProperty.value()) {
+        if (findField(sourceClass, el) == null) {
+          continue;
+        }
+
+        classMapBuilder.field(el, field.getName());
+      }
     }
 
     classMapBuilder.byDefault().register();
@@ -66,5 +72,15 @@ public final class MapperUtil {
     BoundMapperFacade mapperFacade = mapperFactory.getMapperFacade(sourceClass, target);
     T result = (T) mapperFacade.map(source);
     return result;
+  }
+
+  private static Field findField(Class clazz, String fieldName) {
+    for (Field field : clazz.getDeclaredFields()) {
+      if (field.getName().equals(fieldName)) {
+        return field;
+      }
+    }
+
+    return null;
   }
 }

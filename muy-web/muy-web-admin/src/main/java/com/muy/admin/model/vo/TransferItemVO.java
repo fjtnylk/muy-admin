@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TransferItemVO implements Serializable {
-  @MapperProperty(value = "code")
+  @MapperProperty(value = {"code", "id"})
   private String key;
   @MapperProperty(value = "name")
   private String title;

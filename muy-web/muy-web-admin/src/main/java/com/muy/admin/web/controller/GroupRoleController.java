@@ -46,6 +46,12 @@ public class GroupRoleController {
     return WrapMapper.ok(groupRoleService.save(query));
   }
 
+  /**
+   * 组织、角色绑定信息.
+   *
+   * @param groupCode
+   * @return
+   */
   @GetMapping(value = "/groups/bind/role")
   @ResponseBody
   public Wrapper bindRole(String groupCode) {

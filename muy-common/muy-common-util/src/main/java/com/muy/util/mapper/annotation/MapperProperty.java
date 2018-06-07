@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface MapperProperty {
 
-  String value() default "";
+  String[] value() default {};
 }
