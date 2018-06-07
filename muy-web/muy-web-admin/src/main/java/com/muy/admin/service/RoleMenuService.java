@@ -27,7 +27,9 @@ public class RoleMenuService {
   public boolean save(SaveRoleMenuQuery query) {
     List<RoleMenuDO> target = parse(query);
 
-    return roleMenuRepository.save(target);
+    roleMenuRepository.delete(query.getRoleCode());
+    roleMenuRepository.save(target);
+    return true;
   }
 
   /**
