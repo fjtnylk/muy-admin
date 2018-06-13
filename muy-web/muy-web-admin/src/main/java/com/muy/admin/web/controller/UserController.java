@@ -1,9 +1,18 @@
 package com.muy.admin.web.controller;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.muy.admin.model.domain.MasterGroupDO;
+import com.muy.admin.model.domain.UserDO;
 import com.muy.admin.model.query.CreateUserQuery;
+import com.muy.admin.model.query.DeleteGroupQuery;
+import com.muy.admin.model.query.DeleteUserQuery;
+import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.LoginUserQuery;
+import com.muy.admin.model.query.SaveGroupQuery;
+import com.muy.admin.model.query.SaveUserQuery;
 import com.muy.admin.model.vo.LoadGroupsVO;
 import com.muy.admin.model.vo.UMCLoadDashboardVO;
+import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
 import com.muy.admin.service.UserService;
 import com.muy.util.wrapper.WrapMapper;
@@ -29,6 +38,46 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
   @Resource
   private UserService userService;
+
+  /**
+   * 分页加载用户信息.
+   *
+   * @param query
+   * @return
+   */
+  @GetMapping(value = "/users")
+  @ResponseBody
+  public Wrapper loadPage(LoadPageQuery query) {
+    Page<UserDO> page = userService.loadPage(query);
+
+    return
+        WrapMapper.ok(
+            PageWrapper.wrap(page));
+  }
+
+  /**
+   * 保存/更新用户.
+   *
+   * @param query
+   * @return
+   */
+  @PostMapping(value = "/users/save")
+  @ResponseBody
+  public Wrapper saveUser(@Validated @RequestBody SaveUserQuery query) {
+    return WrapMapper.ok(userService.saveUser(query));
+  }
+
+  /**
+   * 删除用户.
+   *
+   * @param query
+   * @return
+   */
+  @PostMapping(value = "/users/delete")
+  @ResponseBody
+  public Wrapper deleteGroup(@Validated @RequestBody DeleteUserQuery query) {
+    return WrapMapper.ok(userService.deleteUser(query));
+  }
 
   /**
    * 创建用户.

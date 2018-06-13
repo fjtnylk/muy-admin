@@ -1,16 +1,22 @@
 package com.muy.admin.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.RoleMenuDO;
 import com.muy.admin.model.domain.UserDO;
 import com.muy.admin.model.domain.UserGroupDO;
 import com.muy.admin.model.domain.UserRoleDO;
 import com.muy.admin.model.query.CreateUserQuery;
+import com.muy.admin.model.query.DeleteUserQuery;
+import com.muy.admin.model.query.LoadPageQuery;
+import com.muy.admin.model.query.SaveUserQuery;
 import com.muy.admin.model.vo.CreateUserVO;
 import com.muy.admin.model.vo.LoginUserVO;
 import com.muy.admin.repository.RoleMenuRepository;
 import com.muy.admin.repository.UserGroupRepository;
 import com.muy.admin.repository.UserRepository;
 import com.muy.admin.repository.UserRoleRepository;
+import com.muy.base.constant.GlobalConstant;
 import com.muy.base.enums.ErrorCodeEnum;
 import com.muy.base.enums.UserSourceEnum;
 import com.muy.base.exception.BizException;
@@ -35,6 +41,49 @@ public class UserService {
   private UserRoleRepository userRoleRepository;
   @Resource
   private RoleMenuRepository roleMenuRepository;
+
+  /**
+   * 保存/更新用户.
+   * @param query
+   * @return
+   */
+  @Transactional(rollbackFor = Exception.class)
+  public boolean saveUser(SaveUserQuery query) {
+    String rawPassword = "123456";
+    String salt = EncryptorsUtil.generateKey();
+    String hashPassword = EncryptorsUtil.sha256(EncryptorsUtil.sha256(rawPassword) + salt);
+
+    /* 保存用户信息 */
+    UserDO user = MapperUtil.map(query, UserDO.class);
+    user.setPassword(hashPassword);
+    user.setSalt(salt);
+    user.setUserSource(UserSourceEnum.INSERT.code);
+    userRepository.save(user);
+
+    /* 保存用户组织信息 */
+    UserGroupDO userGroup = new UserGroupDO();
+    userGroup.setUserId(user.getId());
+    userGroup.setGroupCode(query.getGroupCode());
+    userGroupRepository.save(userGroup);
+
+    /* 保存用户角色信息 */
+    UserRoleDO userRole = new UserRoleDO();
+    userRole.setUserId(user.getId());
+    userRole.setRoleCode(query.getRoleCode());
+    userRoleRepository.save(userRole);
+
+    return true;
+  }
+
+  /**
+   * 删除用户.
+   *
+   * @param query
+   * @return
+   */
+  public boolean deleteUser(DeleteUserQuery query) {
+    return userRepository.deleteById(query.getUserId());
+  }
 
   /**
    * 创建用户
@@ -161,5 +210,20 @@ public class UserService {
    */
   public UserDO loadUserByMobile(String mobile) {
     return userRepository.selectByMobile(mobile);
+  }
+
+  /**
+   * 分页加载.
+   *
+   * @param query
+   * @return
+   */
+  public Page<UserDO> loadPage(LoadPageQuery query) {
+    int page = query.getPage() == null ? 1 : query.getPage();
+    int size = query.getPageSize() == null ? GlobalConstant.DEFAULT_PAGE_SIZE : query.getPageSize();
+
+    return userRepository.selectPage(
+        new Page<>(page, size),
+        new EntityWrapper().orderBy("create_time", false));
   }
 }

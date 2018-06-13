@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.io.Serializable;
@@ -25,7 +26,9 @@ public class MasterMenuDO implements Serializable {
   private String name;
   private String route;
   @TableField(value = "create_time")
+  @JsonIgnore
   private Date createTime;
   @TableField(value = "update_time")
+  @JsonIgnore
   private Date updateTime;
 }
