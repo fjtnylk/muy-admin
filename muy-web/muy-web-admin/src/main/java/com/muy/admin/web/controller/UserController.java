@@ -29,8 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
   @Resource
   private UserService userService;
-  @Resource
-  private SystemSettingService systemSettingService;
 
   /**
    * 创建用户.

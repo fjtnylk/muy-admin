@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.domain.MasterRoleDO;
+import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.SaveGroupQuery;
 import com.muy.admin.model.query.SaveMenuQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
@@ -12,6 +13,7 @@ import com.muy.admin.repository.GroupRoleRepository;
 import com.muy.admin.repository.MasterGroupRepository;
 import com.muy.admin.repository.MasterMenuRepository;
 import com.muy.admin.repository.MasterRoleRepository;
+import com.muy.base.constant.GlobalConstant;
 import com.muy.util.mapper.MapperUtil;
 import java.util.List;
 import javax.annotation.Resource;
@@ -92,11 +94,13 @@ public class SystemSettingService {
   /**
    * 分页加载组织信息.
    *
-   * @param page
-   * @param size
+   * @param query
    * @return
    */
-  public Page<MasterGroupDO> loadPage4Group(int page, int size) {
+  public Page<MasterGroupDO> loadPage4Group(LoadPageQuery query) {
+    int page = query.getPage() == null ? 1 : query.getPage();
+    int size = query.getPageSize() == null ? GlobalConstant.DEFAULT_PAGE_SIZE : query.getPageSize();
+
     return
         groupRepository.selectPage(
             new Page<>(page, size),
@@ -183,11 +187,13 @@ public class SystemSettingService {
   /**
    * 分页加载.
    *
-   * @param current
-   * @param size
+   * @param query
    * @return
    */
-  public Page<MasterRoleDO> loadPage4Role(Integer current, Integer size) {
+  public Page<MasterRoleDO> loadPage4Role(LoadPageQuery query) {
+    int current = query.getPage() == null ? 1 : query.getPage();
+    int size = query.getPageSize() == null ? GlobalConstant.DEFAULT_PAGE_SIZE : query.getPageSize();
+
     return roleRepository.selectPage(
         new Page<>(current, size),
         new EntityWrapper().orderBy("create_time", false));
@@ -262,11 +268,13 @@ public class SystemSettingService {
   /**
    * 分页加载菜单信息.
    *
-   * @param current
-   * @param size
+   * @param query
    * @return
    */
-  public Page<MasterMenuDO> loadPage4Menu(int current, int size) {
+  public Page<MasterMenuDO> loadPage4Menu(LoadPageQuery query) {
+    int current = query.getPage() == null ? 1 : query.getPage();
+    int size = query.getPageSize() == null ? GlobalConstant.DEFAULT_PAGE_SIZE : query.getPageSize();
+
     return
         menuRepository.selectPage(
             new Page<>(current, size),

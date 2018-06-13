@@ -3,6 +3,7 @@ package com.muy.admin.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.MasterMenuDO;
 import com.muy.admin.model.query.DeleteMenuQuery;
+import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.SaveMenuQuery;
 import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
@@ -48,11 +49,8 @@ public class MenuController {
    */
   @GetMapping(value = "/menus")
   @ResponseBody
-  public Wrapper loadPage(Integer page, Integer pageSize) {
-    int current = page == null ? 1 : page;
-    int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
-
-    Page<MasterMenuDO> menuPage = systemSettingService.loadPage4Menu(current, size);
+  public Wrapper loadPage(LoadPageQuery query) {
+    Page<MasterMenuDO> menuPage = systemSettingService.loadPage4Menu(query);
 
     return
         WrapMapper.ok(

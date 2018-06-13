@@ -3,6 +3,7 @@ package com.muy.admin.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.MasterRoleDO;
 import com.muy.admin.model.query.DeleteRoleQuery;
+import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.SaveRoleQuery;
 import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
@@ -37,11 +38,8 @@ public class RoleController {
    */
   @GetMapping(value = "/roles")
   @ResponseBody
-  public Wrapper loadPage(Integer page, Integer pageSize) {
-    int current = page == null ? 1 : page;
-    int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
-
-    Page<MasterRoleDO> rolesPage = systemSettingService.loadPage4Role(current, size);
+  public Wrapper loadPage(LoadPageQuery query) {
+    Page<MasterRoleDO> rolesPage = systemSettingService.loadPage4Role(query);
 
     return
         WrapMapper.ok(

@@ -3,6 +3,7 @@ package com.muy.admin.web.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.query.DeleteGroupQuery;
+import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.SaveGroupQuery;
 import com.muy.admin.model.wrapper.PageWrapper;
 import com.muy.admin.service.SystemSettingService;
@@ -37,10 +38,8 @@ public class GroupController {
    */
   @GetMapping(value = "/groups")
   @ResponseBody
-  public Wrapper loadPage(Integer page, Integer pageSize) {
-    int current = page == null ? 1 : page;
-    int size = pageSize == null ? GlobalConstant.DEFAULT_PAGE_SIZE : pageSize;
-    Page<MasterGroupDO> groupPage = systemSettingService.loadPage4Group(current, size);
+  public Wrapper loadPage(LoadPageQuery query) {
+    Page<MasterGroupDO> groupPage = systemSettingService.loadPage4Group(query);
 
     return
         WrapMapper.ok(
