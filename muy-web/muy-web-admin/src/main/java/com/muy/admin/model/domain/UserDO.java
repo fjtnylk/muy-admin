@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muy.util.mapper.annotation.MapperProperty;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,11 +20,13 @@ import lombok.Data;
 public class UserDO implements Serializable {
   @TableId(type = IdType.AUTO)
   private Long id;                  // 用户编号
+  @JsonProperty(value = "name")
   private String userName;          // 用户名
   @JsonIgnore
   private String password;          // 用户密码
   @JsonIgnore
   private String salt;              // 盐
+  private Integer age;              // 年龄
   private String mobile;            // 手机号
   private String email;             // 邮箱
   private String nickName;          // 昵称
@@ -48,7 +51,6 @@ public class UserDO implements Serializable {
   @JsonIgnore
   private Integer pwdErrorCount;    // 连续输错密码次数
   @TableField(value = "create_time")
-  @JsonIgnore
   private Date createTime;          // 创建时间
   @TableField(value = "update_time")
   @JsonIgnore

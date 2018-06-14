@@ -1,6 +1,7 @@
 package com.muy.admin.model.query;
 
 import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -9,17 +10,13 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Data
 public class SaveUserQuery implements Serializable {
-  @NotBlank(message = "[userName]不允许为空")
-  private String userName;
+  @NotBlank(message = "[name]不允许为空")
+  private String name;
   @NotBlank(message = "[mobile]不允许为空")
   private String mobile;
   private String email;
-  private String birthday;
   @NotBlank(message = "[sex]不允许为空")
   private String sex;
-  private String address;
-  @NotBlank(message = "[groupCode]不允许为空")
-  private String groupCode;
-  @NotBlank(message = "[roleCode]不允许为空")
-  private String roleCode;
+  private List<String> address;
+  private List<String> position;
 }

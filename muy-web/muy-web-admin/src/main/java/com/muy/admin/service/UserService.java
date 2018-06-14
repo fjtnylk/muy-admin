@@ -61,15 +61,17 @@ public class UserService {
     userRepository.save(user);
 
     /* 保存用户组织信息 */
+    String groupCode = query.getPosition().size() > 0 ? query.getPosition().get(0) : "";
     UserGroupDO userGroup = new UserGroupDO();
     userGroup.setUserId(user.getId());
-    userGroup.setGroupCode(query.getGroupCode());
+    userGroup.setGroupCode(groupCode);
     userGroupRepository.save(userGroup);
 
     /* 保存用户角色信息 */
+    String roleCode = query.getPosition().size() > 1 ? query.getPosition().get(1) : "";
     UserRoleDO userRole = new UserRoleDO();
     userRole.setUserId(user.getId());
-    userRole.setRoleCode(query.getRoleCode());
+    userRole.setRoleCode(roleCode);
     userRoleRepository.save(userRole);
 
     return true;
