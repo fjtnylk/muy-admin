@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class SaveUserQuery implements Serializable {
   @NotBlank(message = "[name]不允许为空")
   private String name;
+  private String nickName;
+  private Integer age;
   @NotBlank(message = "[mobile]不允许为空")
   private String mobile;
   private String email;

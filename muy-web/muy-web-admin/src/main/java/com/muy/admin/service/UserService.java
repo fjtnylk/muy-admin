@@ -1,11 +1,13 @@
 package com.muy.admin.service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.muy.admin.model.domain.RoleMenuDO;
 import com.muy.admin.model.domain.UserDO;
 import com.muy.admin.model.domain.UserGroupDO;
 import com.muy.admin.model.domain.UserRoleDO;
+import com.muy.admin.model.entity.AddressEntity;
 import com.muy.admin.model.query.CreateUserQuery;
 import com.muy.admin.model.query.DeleteUserQuery;
 import com.muy.admin.model.query.LoadPageQuery;
@@ -21,10 +23,13 @@ import com.muy.base.enums.ErrorCodeEnum;
 import com.muy.base.enums.UserSourceEnum;
 import com.muy.base.exception.BizException;
 import com.muy.util.crypto.encryptor.EncryptorsUtil;
+import com.muy.util.json.JSONUtil;
 import com.muy.util.mapper.MapperUtil;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,13 +54,27 @@ public class UserService {
    */
   @Transactional(rollbackFor = Exception.class)
   public boolean saveUser(SaveUserQuery query) {
-    String rawPassword = "123456";
+    final String rawPassword = "123456";
     String salt = EncryptorsUtil.generateKey();
     String hashPassword = EncryptorsUtil.sha256(EncryptorsUtil.sha256(rawPassword) + salt);
+    List<String> address = query.getAddress();
 
     /* 保存用户信息 */
-    UserDO user = MapperUtil.map(query, UserDO.class);
+    UserDO user = new UserDO();
+    user.setUserName(query.getName());
+    user.setNickName(query.getNickName());
+    user.setAge(query.getAge());
+    user.setMobile(query.getMobile());
+    user.setEmail(query.getEmail());
+    user.setSex(query.getSex());
     user.setPassword(hashPassword);
+    user.setAddress(
+        JSONUtil.toJSON(
+            AddressEntity.builder()
+                .prov(address.size() > 0 ? address.get(0) : "")
+                .city(address.size() > 1 ? address.get(1) : "")
+                .district(address.size() > 2 ? address.get(2) : "")
+                .build()));
     user.setSalt(salt);
     user.setUserSource(UserSourceEnum.INSERT.code);
     userRepository.save(user);
@@ -224,8 +243,28 @@ public class UserService {
     int page = query.getPage() == null ? 1 : query.getPage();
     int size = query.getPageSize() == null ? GlobalConstant.DEFAULT_PAGE_SIZE : query.getPageSize();
 
+    Wrapper ew = new EntityWrapper();
+    ew.where("1=1");
+
+    String userName = query.getUserName();
+    if (StringUtils.isNotBlank(userName)) {
+      ew.like("user_name", userName);
+    }
+
+    String startTime = query.getStartTime();
+    if (StringUtils.isNotBlank(startTime)) {
+      ew.ge("create_time", startTime);
+    }
+
+    String endTime = query.getEndTime();
+    if (StringUtils.isNotBlank(endTime)) {
+      ew.lt("create_time", endTime);
+    }
+
+    ew.orderBy("create_time", false);
+
     return userRepository.selectPage(
         new Page<>(page, size),
-        new EntityWrapper().orderBy("create_time", false));
+        ew);
   }
 }

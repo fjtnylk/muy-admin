@@ -1,5 +1,6 @@
 package com.muy.admin.model.query;
 
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -9,4 +10,7 @@ import lombok.Data;
 public class LoadPageQuery {
   private Integer page;
   private Integer pageSize;
+  private String userName;
+  private String startTime;
+  private String endTime;
 }
