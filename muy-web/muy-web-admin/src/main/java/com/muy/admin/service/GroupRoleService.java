@@ -2,10 +2,18 @@ package com.muy.admin.service;
 
 import com.google.common.collect.Lists;
 import com.muy.admin.model.domain.GroupRoleDO;
+import com.muy.admin.model.domain.MasterGroupDO;
+import com.muy.admin.model.domain.MasterRoleDO;
 import com.muy.admin.model.query.DeleteGroupRoleQuery;
 import com.muy.admin.model.query.SaveGroupRoleQuery;
+import com.muy.admin.model.vo.CascaderVO;
 import com.muy.admin.repository.GroupRoleRepository;
+import com.muy.admin.repository.MasterGroupRepository;
+import com.muy.admin.repository.MasterRoleRepository;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupRoleService {
   @Resource
   private GroupRoleRepository groupRoleRepository;
+  @Resource
+  private MasterGroupRepository groupRepository;
+  @Resource
+  private MasterRoleRepository roleRepository;
 
   /**
    * 保存/更新组织角色信息.
@@ -95,5 +107,79 @@ public class GroupRoleService {
    */
   public List<GroupRoleDO> loadAll() {
     return groupRoleRepository.selectAll();
+  }
+
+  /**
+   * 级联加载.
+   *
+   * @return
+   */
+  public List<CascaderVO> loadCascader() {
+    /* KeyValue */
+    Map<String, String> groupMapping = keyValue4Group();
+    Map<String, String> roleMapping = keyValue4Role();
+
+    /* 分组 */
+    List<GroupRoleDO> groupRoleAll = groupRoleRepository.selectAll();
+    Map<String, List<GroupRoleDO>> group =
+        groupRoleAll.stream()
+            .collect(Collectors.groupingBy(GroupRoleDO::getGroupCode));
+
+    List<CascaderVO> result = Lists.newArrayListWithCapacity(group.size());
+
+    for (Map.Entry<String, List<GroupRoleDO>> entry : group.entrySet()) {
+      String gCode = entry.getKey();
+      String gName = groupMapping.get(gCode);
+      List<GroupRoleDO> value = entry.getValue();
+
+      List<CascaderVO> childrens = Lists.newArrayListWithCapacity(value.size());
+      for (GroupRoleDO item : value) {
+        String rCode = item.getRoleCode();
+        String rName = roleMapping.get(rCode);
+        CascaderVO children =
+            CascaderVO.builder()
+                .id(rCode)
+                .pid(gCode)
+                .value(rCode)
+                .label(rName)
+                .build();
+
+        childrens.add(children);
+      }
+
+      CascaderVO parent =
+          CascaderVO.builder()
+              .id(gCode)
+              .value(gCode)
+              .label(gName)
+              .children(childrens)
+              .build();
+
+      result.add(parent);
+    }
+
+    return result;
+  }
+
+  public Map<String, String> keyValue4Group() {
+    List<MasterGroupDO> groupAll = groupRepository.selectAll();
+
+    Map<String, String> mapping = new HashMap<>(groupAll.size());
+    groupAll.forEach(item -> {
+      mapping.put(item.getCode(), item.getName());
+    });
+
+    return mapping;
+  }
+
+  public Map<String, String> keyValue4Role() {
+    List<MasterRoleDO> roleAll = roleRepository.selectAll();
+
+    Map<String, String> mapping = new HashMap<>(roleAll.size());
+    roleAll.forEach(item -> {
+      mapping.put(item.getCode(), item.getName());
+    });
+
+    return mapping;
   }
 }

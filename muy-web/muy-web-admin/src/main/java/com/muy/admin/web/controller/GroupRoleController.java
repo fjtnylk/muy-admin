@@ -34,6 +34,12 @@ public class GroupRoleController {
   @Resource
   private SystemSettingService systemSettingService;
 
+  @GetMapping(value = "/groups/roles")
+  @ResponseBody
+  public Wrapper loadCascader() {
+    return WrapMapper.ok(groupRoleService.loadCascader());
+  }
+
   /**
    * 保存/更新组织角色信息.
    *

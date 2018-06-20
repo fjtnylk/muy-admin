@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -13,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "my_master_city")
-public class CityDO implements Serializable {
+public class MasterCityDO implements Serializable {
   @TableId(type = IdType.INPUT)
   private String code;
   private String name;
@@ -21,4 +22,12 @@ public class CityDO implements Serializable {
   private Date createTime;
   @TableField(value = "update_time")
   private Date updateTime;
+
+  @Data
+  @Builder
+  public static class CityFixed implements Serializable {
+    private String id;
+    private String pid;
+    private String name;
+  }
 }
