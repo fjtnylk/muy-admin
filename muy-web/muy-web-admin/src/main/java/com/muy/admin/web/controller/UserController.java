@@ -1,29 +1,20 @@
 package com.muy.admin.web.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.muy.admin.model.domain.MasterGroupDO;
 import com.muy.admin.model.domain.UserDO;
 import com.muy.admin.model.query.CreateUserQuery;
-import com.muy.admin.model.query.DeleteGroupQuery;
 import com.muy.admin.model.query.DeleteUserQuery;
 import com.muy.admin.model.query.LoadPageQuery;
 import com.muy.admin.model.query.LoginUserQuery;
-import com.muy.admin.model.query.SaveGroupQuery;
 import com.muy.admin.model.query.SaveUserQuery;
-import com.muy.admin.model.vo.LoadGroupsVO;
-import com.muy.admin.model.vo.UMCLoadDashboardVO;
 import com.muy.admin.model.wrapper.PageWrapper;
-import com.muy.admin.service.SystemSettingService;
 import com.muy.admin.service.UserService;
 import com.muy.util.wrapper.WrapMapper;
 import com.muy.util.wrapper.Wrapper;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,28 +111,13 @@ public class UserController {
    * @param userId
    * @return
    */
-  @GetMapping(value = "/user/{userId}")
-  @ResponseBody
-  public Wrapper loadUser(@PathVariable("userId") Long userId) {
-    return WrapMapper.ok(userService.loadUser(userId));
-  }
-
   @GetMapping(value = "/user")
   @ResponseBody
-  public Wrapper loadUser4No() {
-    return WrapMapper.ok(userService.loadUser(1000000000L));
-  }
+  public Wrapper loadUser(Long userId) {
+    if (userId == null) {
+      return WrapMapper.error();
+    }
 
-  /**
-   * 加载看板信息.
-   *
-   * @return
-   */
-  @GetMapping(value = "/dashboard")
-  @ResponseBody
-  public Wrapper loadDashboard() {
-    UMCLoadDashboardVO result = UMCLoadDashboardVO.builder().build();
-    result.init();
-    return WrapMapper.ok(result);
+    return WrapMapper.ok(userService.loadUser(userId));
   }
 }
