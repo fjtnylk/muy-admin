@@ -267,4 +267,13 @@ public class UserService {
         new Page<>(page, size),
         ew);
   }
+
+  /**
+   * 登录后处理.
+   *
+   * @param userId
+   */
+  public void loginAfterProc(Long userId) {
+
+  }
 }
